@@ -1,3 +1,7 @@
+row_x = None
+col_x = None
+row_y = None
+col_y = None 
 def int_or_float(x):
     if "." in x:
         return float(x)
@@ -15,6 +19,21 @@ def sum_matrix(x, y):
             c[i].append(x[i][j] + y[i][j])
     return c
     
+def mul_matrix(x, y):
+    global row_x, col_x, row_y, col_y
+    aux = None
+    c = [[] for _ in range(int(row_x))]
+    suma = None
+
+    for i in range(int(row_x)):
+        for j in range(int(col_y)):
+            suma = 0
+            for k in range(int(col_x)):
+                suma += x[i][k] * y[k][j]
+            c[i].append(suma)
+    return c
+
+    
 def print_matrix(matrix):
     for fila in matrix:
         print(' '.join(str(element) for element in fila))
@@ -26,6 +45,7 @@ def scalar_mult_matrix(matrix, scalar):
     return matrix
     
 def sum_two_matrices():
+    global row_x, col_x, row_y, col_y
     row_x, col_x = input("Enter size of first matrix: ").split(" ")
     print("Enter first matrix: ")
     matrix_x = make_matrix_input(row_x)
@@ -41,6 +61,7 @@ def sum_two_matrices():
         print_matrix(sum_matrix(matrix_x, matrix_y))
     
 def mul_scalar():
+    global row_x, col_x
     row_x, col_x = input("Enter size of matrix: ").split(" ")
     print("Enter matrix: ")
     A = make_matrix_input(row_x)
@@ -50,6 +71,7 @@ def mul_scalar():
     print_matrix(B)
     
 def mul_two_matrices():
+    global row_x, col_x, row_y, col_y
     row_x, col_x = input("Enter size of first matrix: ").split(" ")
     print("Enter first matrix: ")
     matrix_x = make_matrix_input(row_x)
@@ -58,7 +80,7 @@ def mul_two_matrices():
     print("Enter second matrix: ")
     matrix_y = make_matrix_input(row_y)
     
-    if (row_x != col_y):
+    if (col_x != row_y):
         print("ERROR")
     else:
         print("The result is: ")
@@ -79,7 +101,7 @@ Your choice: """))
         elif entrada == 2:
             mul_scalar()
         elif entrada == 3:
-            mult_matrix()
+            mul_two_matrices()
             
 if __name__ == "__main__":
     menu()
